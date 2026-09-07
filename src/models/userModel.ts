@@ -28,6 +28,8 @@ const userSchema = new Schema<IUser>({
   isAdmin: { type: Boolean, default: false },
   forgotPassToken: String,
   forgotPassExpiry: Date,
+  verifyToken: String,
+  verifyTokenExpiry: Date,
 });
 
 const User = models.users || model<IUser>("users", userSchema);
