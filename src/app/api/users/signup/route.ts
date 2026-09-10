@@ -15,7 +15,6 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody: SignupReqBody = await request.json();
     const { email, password, userName } = reqBody;
-    console.log(reqBody);
     const user = await User.findOne({ email });
     if (user) {
       return NextResponse.json(
