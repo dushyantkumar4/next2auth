@@ -27,8 +27,10 @@ export const sendEmails = async ({ email, emailType, userId }: MailProp) => {
 
     if (emailType === "VERIFY") {
       await User.findByIdAndUpdate(userId, {
-        verifyToken: hashedToken,
-        verifyTokenExpiry: Date.now() + 360000,
+        $set: {
+          verifyToken: hashedToken,
+          verifyTokenExpiry: Date.now() + 360000,
+        },
       });
     } else if (emailType === "RESET") {
       await User.findByIdAndUpdate(userId, {
@@ -48,12 +50,12 @@ export const sendEmails = async ({ email, emailType, userId }: MailProp) => {
     // });
     const transport = nodemailer.createTransport(
       MailtrapTransport({
-        token: TOKEN,
+        token: TOKEN!,
       }),
     );
 
     const sender = {
-      address: "hello@demomailtrap.co",
+      address: "dushyantvelar@gmail.com",
       name: "My App",
     };
 
