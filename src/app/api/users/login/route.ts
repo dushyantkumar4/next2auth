@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       process.env.TOCKEN_SECRET as string,
       { expiresIn: "1h" },
     );
-    const response = NextResponse.json({}, { status: 200 });
+    const response = NextResponse.json({message:"loggedIn success", success:true}, { status: 200 });
     response.cookies.set("token", token, { httpOnly: true });
     return response;
   } catch (err) {
