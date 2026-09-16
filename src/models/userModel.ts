@@ -23,7 +23,11 @@ const userSchema = new Schema<IUser>({
     required: [true, "Please Provide the Email"],
     unique: true,
   },
-  password: { type: String, required: [true, "Please Provide the Password"] },
+  password: {
+    type: String,
+    required: [true, "Please Provide the Password"],
+    select: false
+  },
   isVerified: { type: Boolean, default: false },
   isAdmin: { type: Boolean, default: false },
   forgotPassToken: String,
