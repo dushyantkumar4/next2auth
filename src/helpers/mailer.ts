@@ -1,8 +1,6 @@
 import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
 import User from "@/models/userModel";
-import { MailtrapTransport } from "mailtrap";
-const TOKEN = process.env.MAIL_TOKEN;
 
 interface MailProp {
   email: string;
@@ -39,23 +37,18 @@ export const sendEmails = async ({ email, emailType, userId }: MailProp) => {
       });
     }
 
-    // const transport = nodemailer.createTransport({
-    //   host: "smtp.example.com",
-    //   port: 587,
-    //   secure: false, // use STARTTLS (upgrade connection to TLS after connecting)
-    //   auth: {
-    //     user: process.env.SMTP_USER,
-    //     pass: process.env.SMTP_PASS,
-    //   },
-    // });
-    const transport = nodemailer.createTransport(
-      MailtrapTransport({
-        token: TOKEN!,
-      }),
-    );
+    const transport = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
 
     const sender = {
-      address: "dushyantvelar@gmail.com",
+      address: process.env.MAIL_FROM!,
       name: "My App",
     };
 
